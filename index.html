@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Views & Likes Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #00ff99;
+        }
+        .service-box, .tracker-box {
+            background: #222;
+            padding: 15px;
+            margin: 10px auto;
+            width: 80%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00ff99;
+        }
+        form, .tracker {
+            background: #222;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00ff99;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #00ff99;
+            color: #000;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 TikTok Views & Likes Service 🚀</h1>
+
+    <div class="service-box">
+        <h2>📌 Views Packages</h2>
+        <p>1000 Views - ₹50</p>
+        <p>5000 Views - ₹200</p>
+        <p>10000 Views - ₹350</p>
+    </div>
+
+    <div class="service-box">
+        <h2>📌 Likes Packages</h2>
+        <p>100 Likes - ₹30</p>
+        <p>500 Likes - ₹120</p>
+        <p>1000 Likes - ₹200</p>
+    </div>
+
+    <h2>📝 Place Your Order</h2>
+    <form action="https://formspree.io/f/xbldyrpw" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="text" name="whatsapp_num" placeholder="Your WhatsApp Number" required>
+        <select name="service">
+            <option value="1000 Views">1000 Views - ₹50</option>
+            <option value="5000 Views">5000 Views - ₹200</option>
+            <option value="10000 Views">10000 Views - ₹350</option>
+            <option value="100 Likes">100 Likes - ₹30</option>
+            <option value="500 Likes">500 Likes - ₹120</option>
+            <option value="1000 Likes">1000 Likes - ₹200</option>
+        </select>
+        <button type="submit">Submit Order</button>
+    </form>
+
+    <div class="tracker-box">
+        <h2>📊 Track Your TikTok Video Growth</h2>
+        <p>Enter your TikTok video's current views & likes.</p>
+        <input type="number" id="currentViews" placeholder="Current Views">
+        <input type="number" id="currentLikes" placeholder="Current Likes">
+        <button onclick="saveData()">Save</button>
+
+        <h3>Previous Data:</h3>
+        <p>Old Views: <span id="oldViews">0</span> | Old Likes: <span id="oldLikes">0</span></p>
+        <p>🔼 Views Increased: <span id="viewIncrease">0</span></p>
+        <p>❤️ Likes Increased: <span id="likeIncrease">0</span></p>
+    </div>
+
+    <script>
+        function saveData() {
+            let newViews = document.getElementById("currentViews").value;
+            let newLikes = document.getElementById("currentLikes").value;
+
+            let oldViews = localStorage.getItem("views") || 0;
+            let oldLikes = localStorage.getItem("likes") || 0;
+
+            document.getElementById("oldViews").innerText = oldViews;
+            document.getElementById("oldLikes").innerText = oldLikes;
+
+            let viewDiff = newViews - oldViews;
+            let likeDiff = newLikes - oldLikes;
+
+            document.getElementById("viewIncrease").innerText = viewDiff > 0 ? viewDiff : 0;
+            document.getElementById("likeIncrease").innerText = likeDiff > 0 ? likeDiff : 0;
+
+            localStorage.setItem("views", newViews);
+            localStorage.setItem("likes", newLikes);
+        }
+    </script>
+
+</body>
+</html>
