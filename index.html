@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎡 TikTrend Free Reward Spinner 🎡</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            color: #00ff99;
+        }
+        .wheel-container {
+            position: relative;
+            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                red 0deg 40deg,
+                yellow 40deg 80deg,
+                green 80deg 120deg,
+                blue 120deg 160deg,
+                purple 160deg 200deg,
+                orange 200deg 240deg,
+                pink 240deg 280deg,
+                cyan 280deg 320deg,
+                red 320deg 360deg
+            );
+            border: 5px solid white;
+            position: absolute;
+            transition: transform 4s ease-out;
+        }
+        .arrow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid white;
+        }
+        .button {
+            background-color: #00ff99;
+            color: #000;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        form {
+            background: #222;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00ff99;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎡 TikTrend Free Reward 🎡</h1>
+    <p>Har 12 ghante mein **2 baar** spin karne ka chance!</p>
+    
+    <div class="wheel-container">
+        <div class="arrow"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+
+    <button class="button" onclick="spinWheel()">Spin Karo 🎰</button>
+
+    <p id="result"></p>
+    <p id="spinsLeft"></p>
+
+    <!-- Reward Claim Form (Hidden by default) -->
+    <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
+        <h2>🎁 Reward Claim Karo</h2>
+        <input type="text" name="name" placeholder="Apna Naam Likho" required>
+        <input type="text" name="video_link" placeholder="Apni TikTok Video ka Link Dalo" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        let spinCount = localStorage.getItem("spinCount") || 0;
+        let lastSpinTime = localStorage.getItem("lastSpinTime") || 0;
+
+        function checkSpinLimit() {
+            let now = new Date().getTime();
+            let timeDiff = now - lastSpinTime;
+            let hoursPassed = timeDiff / (1000 * 60 * 60);
+
+            if (hoursPassed >= 12) {
+                spinCount = 0;  
+                localStorage.setItem("spinCount", spinCount);
+                localStorage.setItem("lastSpinTime", now);
+            }
+
+            document.getElementById("spinsLeft").innerText = "Spins Left: " + (2 - spinCount);
+        }
+
+        function spinWheel() {
+            if (spinCount >= 2) {
+                alert("Aapke 2 spins khatam ho gaye! 12 ghante baad dobara try karein.");
+                return;
+            }
+
+            let wheel = document.getElementById("wheel");
+            let randomSpin = Math.floor(5000 + Math.random() * 3000);
+            wheel.style.transform = "rotate(" + randomSpin + "deg)";
+
+            setTimeout(() => {
+                let degree = randomSpin % 360;
+                let result;
+                
+                if (degree > 0 && degree <= 30) {
+                    result = "1000 Views 🎉";
+                    document.getElementById("rewardForm").classList.remove("hidden");
+                } 
+                else if (degree > 180 && degree <= 210) {
+                    result = "100 Likes ❤️";
+                    document.getElementById("rewardForm").classList.remove("hidden");
+                } 
+                else {
+                    result = "Kuch Nahi! 😭";
+                }
+
+                document.getElementById("result").innerText = "Result: " + result;
+
+                spinCount++;
+                localStorage.setItem("spinCount", spinCount);
+                localStorage.setItem("lastSpinTime", new Date().getTime());
+
+                checkSpinLimit();
+            }, 4000);
+        }
+
+        checkSpinLimit();
+    </script>
+
+</body>
+</html>
