@@ -3,44 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎁 TikTrend Scratch Reward 🎁</title>
+    <title>TikTrend Free Reward</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             text-align: center;
+            font-family: Arial, sans-serif;
             background-color: #121212;
             color: white;
-            padding: 20px;
         }
         h1 {
             color: #00ff99;
         }
-        .scratch-card {
-            width: 250px;
-            height: 100px;
-            background-color: #ccc;
-            margin: 20px auto;
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            user-select: none;
-            touch-action: none;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
         }
-        .cover {
-            width: 100%;
-            height: 100%;
-            background: gray;
-            position: absolute;
-            top: 0;
-            left: 0;
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
             cursor: pointer;
+            border-radius: 10px;
+        }
+        .box:hover {
+            background-color: #666;
         }
         .hidden {
             display: none;
         }
         .button {
             background-color: #00ff99;
-            color: #000;
+            color: black;
             font-size: 18px;
             padding: 10px 20px;
             border: none;
@@ -69,77 +71,78 @@
 </head>
 <body>
 
-    <h1>🎁 TikTrend Scratch Reward 🎁</h1>
-    <p>Har **12 ghante** mein **3 baar** scratch karne ka chance!</p>
+    <h1>🎁 TikTrend Free Reward 🎁</h1>
+    <p>Har 12 ghante me **3 tries** milengi!</p>
 
-    <div class="scratch-card">
-        <div class="cover" id="cover"></div>
-        <h2 id="prize">?????</h2>
+    <div class="grid" id="grid">
+        <!-- 9 Boxes -->
+        <div class="box" onclick="checkBox(0)"></div>
+        <div class="box" onclick="checkBox(1)"></div>
+        <div class="box" onclick="checkBox(2)"></div>
+        <div class="box" onclick="checkBox(3)"></div>
+        <div class="box" onclick="checkBox(4)"></div>
+        <div class="box" onclick="checkBox(5)"></div>
+        <div class="box" onclick="checkBox(6)"></div>
+        <div class="box" onclick="checkBox(7)"></div>
+        <div class="box" onclick="checkBox(8)"></div>
     </div>
 
-    <p id="spinsLeft"></p>
+    <p id="result"></p>
+    <p id="triesLeft"></p>
 
-    <!-- Reward Claim Form (Hidden until win) -->
+    <!-- Reward Form -->
     <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
-        <h2>🎉 Reward Claim Karo</h2>
+        <h2>🎁 Reward Claim Karo</h2>
         <input type="text" name="name" placeholder="Apna Naam Likho" required>
         <input type="text" name="video_link" placeholder="Apni TikTok Video ka Link Dalo" required>
-        <input type="hidden" name="won_prize" id="won_prize">
+        <input type="hidden" name="reward" id="rewardInput">
         <button type="submit">Submit</button>
     </form>
 
     <script>
-        let scratchCount = localStorage.getItem("scratchCount") || 0;
-        let lastScratchTime = localStorage.getItem("lastScratchTime") || 0;
-        let hasScratched = false;
+        let tries = localStorage.getItem("tries") || 0;
+        let lastTryTime = localStorage.getItem("lastTryTime") || 0;
+        let correctBox = Math.floor(Math.random() * 9);
 
-        function checkScratchLimit() {
+        function checkTryLimit() {
             let now = new Date().getTime();
-            let timeDiff = now - lastScratchTime;
+            let timeDiff = now - lastTryTime;
             let hoursPassed = timeDiff / (1000 * 60 * 60);
 
             if (hoursPassed >= 12) {
-                scratchCount = 0;
-                localStorage.setItem("scratchCount", scratchCount);
-                localStorage.setItem("lastScratchTime", now);
+                tries = 0;
+                localStorage.setItem("tries", tries);
+                localStorage.setItem("lastTryTime", now);
+                correctBox = Math.floor(Math.random() * 9);
             }
 
-            document.getElementById("spinsLeft").innerText = "Chances Left: " + (3 - scratchCount);
+            document.getElementById("triesLeft").innerText = "Tries Left: " + (3 - tries);
         }
 
-        document.getElementById("cover").addEventListener("click", function () {
-            if (scratchCount >= 3) {
-                alert("Aapke 3 chances khatam ho gaye! 12 ghante baad dobara try karein.");
+        function checkBox(index) {
+            if (tries >= 3) {
+                alert("Aapke 3 tries khatam ho gaye! 12 ghante baad try karein.");
                 return;
             }
-            if (hasScratched) return;
-            
-            hasScratched = true;
-            this.style.opacity = "0";
-            
-            let randomNum = Math.random();
-            let prize = "Kuch Nahi! 😭"; // Default: No win
 
-            if (randomNum < 0.02) {
-                prize = "1000 Views 🎉";
+            let result;
+            if (index === correctBox) {
+                result = "🎉 Mubarak ho! Aapne reward jeet liya.";
                 document.getElementById("rewardForm").classList.remove("hidden");
-                document.getElementById("won_prize").value = "1000 Views";
-            } else if (randomNum < 0.05) {
-                prize = "100 Likes ❤️";
-                document.getElementById("rewardForm").classList.remove("hidden");
-                document.getElementById("won_prize").value = "100 Likes";
+                document.getElementById("rewardInput").value = "Jeeta!";
+            } else {
+                result = "❌ Galat! Try again.";
             }
 
-            document.getElementById("prize").innerText = prize;
+            document.getElementById("result").innerText = result;
+            tries++;
+            localStorage.setItem("tries", tries);
+            localStorage.setItem("lastTryTime", new Date().getTime());
 
-            scratchCount++;
-            localStorage.setItem("scratchCount", scratchCount);
-            localStorage.setItem("lastScratchTime", new Date().getTime());
+            checkTryLimit();
+        }
 
-            checkScratchLimit();
-        });
-
-        checkScratchLimit();
+        checkTryLimit();
     </script>
 
 </body>
