@@ -135,10 +135,11 @@
 
         document.getElementById("rewardForm").addEventListener("submit", function(event) {
             let videoLink = document.getElementById("videoLink").value;
-            let regex = /https:\/\/(www\.|vt\.)?tiktok\.com\//;
+            // Updated regex to accept any valid URL
+            let regex = /^(https?:\/\/[^\s]+)$/;
 
             if (!regex.test(videoLink)) {
-                alert("Sirf TikTok video ka link daal sakte hain!");
+                alert("Kripya valid URL daalain!");
                 event.preventDefault();
             }
         });
