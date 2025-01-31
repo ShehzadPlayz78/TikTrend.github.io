@@ -88,6 +88,7 @@
     <!-- Reward Claim Form -->
     <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
         <h2>🎁 Reward Claim Karo</h2>
+        <input type="text" name="name" id="name" placeholder="Apna Naam Likho" required>
         <input type="text" name="video_link" id="videoLink" placeholder="Apni TikTok Video ka Link Dalo" required>
         <button type="submit">Submit</button>
     </form>
@@ -134,7 +135,7 @@
 
         document.getElementById("rewardForm").addEventListener("submit", function(event) {
             let videoLink = document.getElementById("videoLink").value;
-            let regex = /https:\/\/www\.tiktok\.com\/t\//;
+            let regex = /https:\/\/(www\.|vt\.)?tiktok\.com\//;
 
             if (!regex.test(videoLink)) {
                 alert("Sirf TikTok video ka link daal sakte hain!");
