@@ -67,7 +67,8 @@
 <body>
 
     <h1>🎁 9 Box Reward Game 🎁</h1>
-    <p>Koi bhi box click karo aur dekho sahi ya galat!</p>
+    <p>Aapke paas har **12 ghante** me **3 chances** hain!</p>
+    <p id="chancesLeft"></p>
 
     <div class="grid" id="grid">
         <!-- 9 Boxes -->
@@ -87,36 +88,59 @@
     <!-- Reward Claim Form -->
     <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
         <h2>🎁 Reward Claim Karo</h2>
-        <input type="text" name="name" placeholder="Apna Naam Likho" required>
-        <input type="text" name="video_link" placeholder="Apni TikTok Video ka Link Dalo" required>
-        <input type="text" name="reward" id="rewardInput" readonly>
+        <input type="text" name="video_link" id="videoLink" placeholder="Apni TikTok Video ka Link Dalo" required>
         <button type="submit">Submit</button>
     </form>
 
     <script>
         let correctBox = Math.floor(Math.random() * 9);
-        let boxes = document.querySelectorAll(".box");
-        let gameOver = false; // Prevent multiple clicks
+        let gameOver = false;
+        let chances = parseInt(localStorage.getItem("chances")) || 0;
+        let lastPlayed = parseInt(localStorage.getItem("lastPlayed")) || 0;
+        let now = Date.now();
+        
+        if (now - lastPlayed > 12 * 60 * 60 * 1000) {
+            chances = 0;
+            localStorage.setItem("chances", chances);
+            localStorage.setItem("lastPlayed", now);
+        }
+
+        document.getElementById("chancesLeft").innerText = "Aapke bache hue chances: " + (3 - chances);
 
         function checkBox(index) {
-            if (gameOver) return; // If already clicked, do nothing
+            if (gameOver || chances >= 3) {
+                alert("Aapke 3 chances khatam ho gaye! 12 ghante baad dobara try karein.");
+                return;
+            }
 
-            gameOver = true; // Lock game after one click
+            gameOver = true;
             let images = document.querySelectorAll(".box img");
-
-            images[index].style.display = "block"; // Show image in clicked box
+            images[index].style.display = "block";
 
             if (index === correctBox) {
                 document.getElementById("result").innerText = "🎉 Mubarak ho! Aapne reward jeet liya.";
-                document.getElementById("rewardInput").value = "Jeeta Hua Reward"; // Store reward
-                document.getElementById("rewardForm").classList.remove("hidden"); // Show form
+                document.getElementById("rewardForm").classList.remove("hidden");
             } else {
                 document.getElementById("result").innerText = "❌ Galat! Game reset ho raha hai...";
                 setTimeout(() => {
-                    location.reload(); // Game reset immediately
+                    location.reload();
                 }, 1000);
             }
+
+            chances++;
+            localStorage.setItem("chances", chances);
+            localStorage.setItem("lastPlayed", now);
         }
+
+        document.getElementById("rewardForm").addEventListener("submit", function(event) {
+            let videoLink = document.getElementById("videoLink").value;
+            let regex = /https:\/\/www\.tiktok\.com\/t\//;
+
+            if (!regex.test(videoLink)) {
+                alert("Sirf TikTok video ka link daal sakte hain!");
+                event.preventDefault();
+            }
+        });
     </script>
 
 </body>
