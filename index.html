@@ -78,20 +78,12 @@
     
     <div class="wheel-container">
         <div class="arrow"></div>
-        <svg class="wheel" id="wheel" viewBox="0 0 100 100">
-            <!-- Rewards Sections -->
-            <circle cx="50" cy="50" r="45" fill="red" />
-            <text x="50" y="20" font-size="8" text-anchor="middle" fill="white">1000 Views</text>
-
-            <circle cx="50" cy="50" r="45" fill="yellow" transform="rotate(45 50 50)"/>
-            <text x="50" y="20" font-size="8" text-anchor="middle" fill="black">100 Likes</text>
-
-            <circle cx="50" cy="50" r="45" fill="green" transform="rotate(90 50 50)"/>
-            <text x="50" y="20" font-size="8" text-anchor="middle" fill="white">Kuch Nahi</text>
-
-            <circle cx="50" cy="50" r="45" fill="blue" transform="rotate(135 50 50)"/>
-            <text x="50" y="20" font-size="8" text-anchor="middle" fill="white">Try Again</text>
-        </svg>
+        <div class="wheel" id="wheel" style="background: conic-gradient(
+            red 0deg 90deg,
+            yellow 90deg 180deg,
+            green 180deg 270deg,
+            blue 270deg 360deg
+        );"></div>
     </div>
 
     <button class="button" onclick="spinWheel()">Spin Karo 🎰</button>
@@ -99,7 +91,7 @@
     <p id="result"></p>
     <p id="spinsLeft"></p>
 
-    <!-- Reward Claim Form (Hidden by default) -->
+    <!-- Reward Claim Form -->
     <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
         <h2>🎁 Reward Claim Karo</h2>
         <input type="text" name="name" placeholder="Apna Naam Likho" required>
@@ -123,12 +115,13 @@
                 localStorage.setItem("lastSpinTime", now);
             }
 
-            document.getElementById("spinsLeft").innerText = "Spins Left: " + (2 - spinCount);
+            let spinsLeft = Math.max(2 - spinCount, 0);
+            document.getElementById("spinsLeft").innerText = "Spins Left: " + spinsLeft;
         }
 
         function spinWheel() {
-            if (spinCount >= 3) {
-                alert("Aapke 3 spins khatam ho gaye! 12 ghante baad dobara try karein.");
+            if (spinCount >= 2) {
+                alert("Aapke 2 spins khatam ho gaye! 12 ghante baad dobara try karein.");
                 return;
             }
 
@@ -139,21 +132,26 @@
             setTimeout(() => {
                 let degree = randomSpin % 360;
                 let result;
-                
-                if (degree >= 0 && degree <= 45) {
+
+                if (degree >= 0 && degree < 90) {
                     result = "🎉 1000 Views 🎉";
-                    document.getElementById("rewardForm").classList.remove("hidden");
                 } 
-                else if (degree > 45 && degree <= 90) {
+                else if (degree >= 90 && degree < 180) {
                     result = "❤️ 100 Likes ❤️";
-                    document.getElementById("rewardForm").classList.remove("hidden");
+                } 
+                else if (degree >= 180 && degree < 270) {
+                    result = "😭 Kuch Nahi Mila!";
                 } 
                 else {
-                    result = "😭 Kuch Nahi Mila!";
+                    result = "🔄 Try Again";
                 }
 
                 document.getElementById("result").innerText = "Result: " + result;
                 document.getElementById("win_result").value = result;
+
+                if (result !== "😭 Kuch Nahi Mila!" && result !== "🔄 Try Again") {
+                    document.getElementById("rewardForm").classList.remove("hidden");
+                }
 
                 spinCount++;
                 localStorage.setItem("spinCount", spinCount);
