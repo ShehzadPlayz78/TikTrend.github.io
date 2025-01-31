@@ -99,8 +99,11 @@
     <script>
         let correctBox = Math.floor(Math.random() * 9);
         let boxes = document.querySelectorAll(".box");
+        let gameOver = false; // Prevent multiple wins
 
         function checkBox(index) {
+            if (gameOver) return; // If already won, do nothing
+
             let result;
             let images = document.querySelectorAll(".box img");
 
@@ -110,10 +113,15 @@
                 result = "🎉 Mubarak ho! Aapne reward jeet liya.";
                 document.getElementById("rewardInput").value = "Jeeta Hua Reward"; // Reward store karein
                 document.getElementById("rewardForm").classList.remove("hidden"); // Form show ho
+                gameOver = true; // Lock game after winning
             } else {
                 result = "❌ Galat! Sahi box highlight ho raha hai...";
                 images[correctBox].style.display = "block"; // Show correct box
                 boxes[correctBox].classList.add("highlight");
+
+                setTimeout(() => {
+                    location.reload(); // Game reset after 2 seconds
+                }, 2000);
             }
 
             document.getElementById("result").innerText = result;
