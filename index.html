@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test: 9 Box Reward</title>
+    <title>TikTrend Free Reward</title>
     <style>
         body {
             text-align: center;
@@ -45,12 +45,32 @@
         .highlight {
             border: 3px solid yellow;
         }
+        .hidden {
+            display: none;
+        }
+        form {
+            background: #222;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00ff99;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>🎁 Test: 9 Box Reward 🎁</h1>
-    <p>Koi bhi box click karo aur dekho sahi ya galat!</p>
+    <h1>🎁 TikTrend Free Reward 🎁</h1>
+    <p>Har 12 ghante me **3 tries** milengi!</p>
 
     <div class="grid" id="grid">
         <!-- 9 Boxes -->
@@ -66,12 +86,44 @@
     </div>
 
     <p id="result"></p>
+    <p id="triesLeft"></p>
+
+    <!-- Reward Form -->
+    <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
+        <h2>🎁 Reward Claim Karo</h2>
+        <input type="text" name="name" placeholder="Apna Naam Likho" required>
+        <input type="text" name="video_link" placeholder="Apni TikTok Video ka Link Dalo" required>
+        <input type="hidden" name="reward" id="rewardInput">
+        <button type="submit">Submit</button>
+    </form>
 
     <script>
+        let tries = localStorage.getItem("tries") || 0;
+        let lastTryTime = localStorage.getItem("lastTryTime") || 0;
         let correctBox = Math.floor(Math.random() * 9);
         let boxes = document.querySelectorAll(".box");
 
+        function checkTryLimit() {
+            let now = new Date().getTime();
+            let timeDiff = now - lastTryTime;
+            let hoursPassed = timeDiff / (1000 * 60 * 60);
+
+            if (hoursPassed >= 12) {
+                tries = 0;
+                localStorage.setItem("tries", tries);
+                localStorage.setItem("lastTryTime", now);
+                correctBox = Math.floor(Math.random() * 9);
+            }
+
+            document.getElementById("triesLeft").innerText = "Tries Left: " + (3 - tries);
+        }
+
         function checkBox(index) {
+            if (tries >= 3) {
+                alert("Aapke 3 tries khatam ho gaye! 12 ghante baad try karein.");
+                return;
+            }
+
             let result;
             let images = document.querySelectorAll(".box img");
 
@@ -79,6 +131,8 @@
 
             if (index === correctBox) {
                 result = "🎉 Mubarak ho! Aapne reward jeet liya.";
+                document.getElementById("rewardForm").classList.remove("hidden");
+                document.getElementById("rewardInput").value = "Jeeta!";
             } else {
                 result = "❌ Galat! Sahi box highlight ho raha hai...";
                 images[correctBox].style.display = "block"; // Show correct box
@@ -86,7 +140,18 @@
             }
 
             document.getElementById("result").innerText = result;
+            tries++;
+            localStorage.setItem("tries", tries);
+            localStorage.setItem("lastTryTime", new Date().getTime());
+
+            setTimeout(() => {
+                location.reload(); // Refresh after 3 seconds
+            }, 3000);
+
+            checkTryLimit();
         }
+
+        checkTryLimit();
     </script>
 
 </body>
