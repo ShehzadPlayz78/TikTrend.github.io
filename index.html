@@ -26,15 +26,9 @@
             height: 100%;
             border-radius: 50%;
             background: conic-gradient(
-                red 0deg 40deg,
-                yellow 40deg 80deg,
-                green 80deg 120deg,
-                blue 120deg 160deg,
-                purple 160deg 200deg,
-                orange 200deg 240deg,
-                pink 240deg 280deg,
-                cyan 280deg 320deg,
-                red 320deg 360deg
+                red 0deg 45deg, yellow 45deg 90deg, green 90deg 135deg, 
+                blue 135deg 180deg, purple 180deg 225deg, orange 225deg 270deg, 
+                pink 270deg 315deg, cyan 315deg 360deg
             );
             border: 5px solid white;
             position: absolute;
@@ -138,16 +132,19 @@
                 let degree = randomSpin % 360;
                 let result;
                 
-                if (degree > 0 && degree <= 30) {
-                    result = "1000 Views 🎉";
+                // 10% chance to win 1000 views
+                if (degree > 0 && degree <= 36) {
+                    result = "🎉 1000 Views 🎉";
                     document.getElementById("rewardForm").classList.remove("hidden");
                 } 
-                else if (degree > 180 && degree <= 210) {
-                    result = "100 Likes ❤️";
+                // 15% chance to win 100 likes
+                else if (degree > 180 && degree <= 234) {
+                    result = "❤️ 100 Likes ❤️";
                     document.getElementById("rewardForm").classList.remove("hidden");
                 } 
+                // 75% chance to lose
                 else {
-                    result = "Kuch Nahi! 😭";
+                    result = "😭 Kuch Nahi Mila!";
                 }
 
                 document.getElementById("result").innerText = "Result: " + result;
