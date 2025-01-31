@@ -42,9 +42,6 @@
             border-radius: 10px;
             display: none;
         }
-        .highlight {
-            border: 3px solid yellow;
-        }
         .hidden {
             display: none;
         }
@@ -99,32 +96,26 @@
     <script>
         let correctBox = Math.floor(Math.random() * 9);
         let boxes = document.querySelectorAll(".box");
-        let gameOver = false; // Prevent multiple wins
+        let gameOver = false; // Prevent multiple clicks
 
         function checkBox(index) {
-            if (gameOver) return; // If already won, do nothing
+            if (gameOver) return; // If already clicked, do nothing
 
-            let result;
+            gameOver = true; // Lock game after one click
             let images = document.querySelectorAll(".box img");
 
             images[index].style.display = "block"; // Show image in clicked box
 
             if (index === correctBox) {
-                result = "🎉 Mubarak ho! Aapne reward jeet liya.";
-                document.getElementById("rewardInput").value = "Jeeta Hua Reward"; // Reward store karein
-                document.getElementById("rewardForm").classList.remove("hidden"); // Form show ho
-                gameOver = true; // Lock game after winning
+                document.getElementById("result").innerText = "🎉 Mubarak ho! Aapne reward jeet liya.";
+                document.getElementById("rewardInput").value = "Jeeta Hua Reward"; // Store reward
+                document.getElementById("rewardForm").classList.remove("hidden"); // Show form
             } else {
-                result = "❌ Galat! Sahi box highlight ho raha hai...";
-                images[correctBox].style.display = "block"; // Show correct box
-                boxes[correctBox].classList.add("highlight");
-
+                document.getElementById("result").innerText = "❌ Galat! Game reset ho raha hai...";
                 setTimeout(() => {
-                    location.reload(); // Game reset after 2 seconds
-                }, 2000);
+                    location.reload(); // Game reset immediately
+                }, 1000);
             }
-
-            document.getElementById("result").innerText = result;
         }
     </script>
 
